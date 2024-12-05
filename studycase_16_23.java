@@ -55,7 +55,6 @@ public class studycase_16_23 {
 
     public static void tambahDataKRS() {
         Scanner input = new Scanner(System.in);
-
         //cek apakah data mahasiswa mencapai limit
         if (jumlahMhs >= max_mhs) {
             System.out.println("Kapasistas mahasiswa penuh");
