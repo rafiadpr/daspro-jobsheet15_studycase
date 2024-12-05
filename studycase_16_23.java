@@ -66,8 +66,27 @@ public class studycase_16_23 {
 
         System.out.print("Nama Mahasiswa : ");
         String nama = input.nextLine();
-        System.out.print("NIM : ");
-        String nim = input.nextLine();
+        
+        String nim;
+        while (true) {
+            System.out.print("NIM : ");
+            nim = input.nextLine();
+    
+            boolean cekNim = false;
+            // Memeriksa apakah NIM sudah ada
+            for (int i = 0; i < jumlahMhs; i++) {
+                if (nimMhs[i] != null && nimMhs[i].equals(nim)) {
+                    cekNim = true;
+                    break;
+                }
+            }
+    
+            if (cekNim) {
+                System.out.println("NIM sudah terdaftar. Silakan masukkan NIM yang lain.");
+            } else {
+                break; // Jika NIM tidak ada duplikasi, keluar dari loop
+            }
+        }
 
         namaMhs[jumlahMhs] = nama; //simpan nama yang diinput ke array namaMHS
         nimMhs[jumlahMhs] = nim; //simpan nim yang diinput ke array nimMHS
