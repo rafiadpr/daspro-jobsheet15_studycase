@@ -26,7 +26,7 @@ public class studycase_16_23 {
                     tambahDataKRS();
                     break;
                 case 2:
-                    tampilDataKRS();
+                    tampilDataKRS(input);
                     break;
                 case 3:
                     analisisDataKRS();
@@ -42,7 +42,7 @@ public class studycase_16_23 {
     }
 
     public static void header() {
-        System.out.println("=== PENCATATAN PRESTASI MAHASISWA ===");
+        System.out.println("\n=== PENCATATAN PRESTASI MAHASISWA ===");
         System.out.println("1. Tambah Data KRS");
         System.out.println("2. Tampilkan Daftar KRS Mahasiswa");
         System.out.println("3. Analisis Data KRS ");
@@ -54,13 +54,43 @@ public class studycase_16_23 {
 
     }
 
-    public static void tampilDataKRS() {
+    public static void tampilDataKRS(Scanner input) {
+        System.out.println("--- Tampilkan Daftar KRS Mahasiswa ---");
+        System.out.print("Masukkan NIM Mahasiswa : ");
+        input.nextLine();
+        String nim = input.nextLine();
 
+        int posisi = -1;
+
+        for (int i = 0; i < jumlahMhs; i++) {
+            if (nimMhs[i].equals(nim)) {
+                posisi = i + 1;  // Menyimpan posisi yang ditemukan (1-based index)
+                break;
+            }
+        }
+
+        // Menampilkan hasil pencarian
+        if (posisi != -1) {
+            System.out.println("\nDaftar KRS:");
+            System.out.println("NIM        Nama            Kode MK     Nama Mata Kuliah           SKS");
+            System.out.println("----------------------------------------------------------------------");
+
+            for (int i = 0; i < max_matkul; i++) {
+                if (kodeMatkulMhs[posisi][i] != null) {
+                    System.out.print(nimMhs[posisi] + "        ");
+                    System.out.print(namaMhs[posisi] + "        ");
+                    System.out.print(kodeMatkulMhs[posisi][i] + "        ");
+                    System.out.print(namaMatkulMhs[posisi][i] + "        ");
+                    System.out.println(sksMatkulMhs[posisi][i] + "        ");
+                }
+            }
+        } else {
+            System.out.println("Mahasiswa tidak ditemukan.");
+        }
     }
 
     public static void analisisDataKRS() {
 
     }
 
-    // public static void 
 }
