@@ -160,7 +160,13 @@ public class studycase_16_23 {
     }
 
     public static void analisisDataKRS() {
-
+        int analisis = 0;
+        for (int i = 0; i < jumlahMhs; i++) {
+            if (totalSks[i] < 20) {
+                analisis++;
+            }
+        }
+        System.out.println("Jumlah mahasiswa yang mengambil SKS kurang dari 20 : " + analisis);
     }
 
 }
