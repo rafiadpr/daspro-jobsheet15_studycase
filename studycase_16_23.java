@@ -72,7 +72,7 @@ public class studycase_16_23 {
             nim = input.nextLine();
     
             boolean cekNim = false;
-            // Memeriksa apakah NIM sudah ada
+            // periksa apakah NIM sudah ada
             for (int i = 0; i < jumlahMhs; i++) {
                 if (nimMhs[i] != null && nimMhs[i].equals(nim)) {
                     cekNim = true;
@@ -83,7 +83,7 @@ public class studycase_16_23 {
             if (cekNim) {
                 System.out.println("NIM sudah terdaftar. Silakan masukkan NIM yang lain.");
             } else {
-                break; // Jika NIM tidak ada duplikasi, keluar dari loop
+                break; // Jika NIM tidak ada yang sama, keluar dari loop
             }
         }
 
@@ -151,12 +151,12 @@ public class studycase_16_23 {
 
         for (int i = 0; i < jumlahMhs; i++) {
             if (nimMhs[i] != null && nimMhs[i].equals(nim)) {
-                posisi = i;  // Simpan posisi (0-based index)
+                posisi = i;  // mengubah posisi dari -1 menjadi sesuai index i
                 break;
             }
         }
 
-        if (posisi == -1) { // Jika mahasiswa tidak ditemukan
+        if (posisi == -1) { // jika mahasiswa tidak ditemukan
             System.out.println("Mahasiswa dengan NIM " + nim + " tidak ditemukan.");
             return;
         }
@@ -165,7 +165,7 @@ public class studycase_16_23 {
         System.out.printf("%-10s %-15s %-10s %-25s %-5s\n", "NIM", "Nama", "Kode MK", "Nama Mata Kuliah", "SKS");
 
         for (int i = 0; i < max_matkul; i++) {
-            if (kodeMatkulMhs[posisi][i] != null) { // Jika data mata kuliah valid
+            if (kodeMatkulMhs[posisi][i] != null) { // jika data mata kuliah valid
                 System.out.printf("%-10s %-15s %-10s %-25s %-5d\n",
                         nimMhs[posisi],
                         namaMhs[posisi],
