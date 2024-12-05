@@ -74,7 +74,7 @@ public class studycase_16_23 {
 
         int jumlahMatkul = 0;
         while (true) {
-            
+
             //cek apakah matkul mencapai limit
             if (jumlahMatkul > max_matkul) {
                 System.out.println("Kapasitas matkul penuh");
@@ -100,8 +100,7 @@ public class studycase_16_23 {
                 if (sks >= 1 && sks <= 3) {
                     System.out.println("Data mata kuliah berhasil ditambahkan.");
                     break;
-                }
-                else {
+                } else {
                     System.out.println("Jumlah SKS tidak valid! Coba lagi");
                 }
             }
@@ -111,7 +110,7 @@ public class studycase_16_23 {
             sksMatkulMhs[jumlahMhs][jumlahMatkul] = sks; //simpan sks yg diinput ke array sksMatkulMHS
             totalSks[jumlahMhs] += sks; //tambah sks ke array totalSKS untuk mhs indeks ke jumlahMHS 
             jumlahMatkul++;
-        
+
             System.out.print("Tambah mata kuliah lain? (y/n) : ");
             String pilihTambah = input.nextLine();
             if (pilihTambah.equalsIgnoreCase("n")) {
@@ -133,30 +132,31 @@ public class studycase_16_23 {
         int posisi = -1;
 
         for (int i = 0; i < jumlahMhs; i++) {
-            if (nimMhs[i].equals(nim)) {
-                posisi = i + 1;  // Menyimpan posisi yang ditemukan (1-based index)
+            if (nimMhs[i] != null && nimMhs[i].equals(nim)) {
+                posisi = i;  // Simpan posisi (0-based index)
                 break;
             }
         }
 
-        // Menampilkan hasil pencarian
-        if (posisi != -1) {
-            System.out.println("\nDaftar KRS:");
-            System.out.println("NIM        Nama            Kode MK     Nama Mata Kuliah           SKS");
-            System.out.println("----------------------------------------------------------------------");
-
-            for (int i = 0; i < max_matkul; i++) {
-                if (kodeMatkulMhs[posisi][i] != null) {
-                    System.out.print(nimMhs[posisi] + "        ");
-                    System.out.print(namaMhs[posisi] + "        ");
-                    System.out.print(kodeMatkulMhs[posisi][i] + "        ");
-                    System.out.print(namaMatkulMhs[posisi][i] + "        ");
-                    System.out.println(sksMatkulMhs[posisi][i] + "        ");
-                }
-            }
-        } else {
-            System.out.println("Mahasiswa tidak ditemukan.");
+        if (posisi == -1) { // Jika mahasiswa tidak ditemukan
+            System.out.println("Mahasiswa dengan NIM " + nim + " tidak ditemukan.");
+            return;
         }
+
+        System.out.println("\nDaftar KRS:");
+        System.out.printf("%-10s %-15s %-10s %-25s %-5s\n", "NIM", "Nama", "Kode MK", "Nama Mata Kuliah", "SKS");
+
+        for (int i = 0; i < max_matkul; i++) {
+            if (kodeMatkulMhs[posisi][i] != null) { // Jika data mata kuliah valid
+                System.out.printf("%-10s %-15s %-10s %-25s %-5d\n",
+                        nimMhs[posisi],
+                        namaMhs[posisi],
+                        kodeMatkulMhs[posisi][i],
+                        namaMatkulMhs[posisi][i],
+                        sksMatkulMhs[posisi][i]);
+            }
+        }
+        System.out.println("Total SKS: " + totalSks[posisi]);
     }
 
     public static void analisisDataKRS() {
