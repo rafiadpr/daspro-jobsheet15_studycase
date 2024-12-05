@@ -16,7 +16,132 @@ public class studycase_16_23 {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        boolean isRun = true;
+        boolean isRun = true;```java
+// Add a method to validate input for NIM and name
+public static String validateInput(Scanner input, String prompt) {
+    while (true) {
+        System.out.print(prompt);
+        String inputStr = input.nextLine();
+        if (!inputStr.isEmpty()) {
+            return inputStr;
+        } else {
+            System.out.println("Input cannot be empty. Please try again.");
+        }
+    }
+}
+
+// Modify the tambahDataKRS method to use the validateInput method
+public static void tambahDataKRS() {
+    Scanner input = new Scanner(System.in);
+
+    // cek apakah data mahasiswa mencapai limit
+    if (jumlahMhs >= max_mhs) {
+        System.out.println("Kapasistas mahasiswa penuh");
+        return;
+    }
+
+    System.out.println("\n--- Tambah Data KRS ---");
+
+    String nama = validateInput(input, "Nama Mahasiswa : ");
+    String nim;
+    while (true) {
+        nim = validateInput(input, "NIM : ");
+        boolean cekNim = false;
+        // Memeriksa apakah NIM sudah ada
+        for (int i = 0; i < jumlahMhs; i++) {
+            if (nimMhs[i] != null && nimMhs[i].equals(nim)) {
+                cekNim = true;
+                break;
+            }
+        }
+        if (cekNim) {
+            System.out.println("NIM sudah terdaftar. Silakan masukkan NIM yang lain.");
+        } else {
+            break; // Jika NIM tidak ada duplikasi, keluar dari loop
+        }
+    }
+
+    namaMhs[jumlahMhs] = nama; // simpan nama yang diinput ke array namaMHS
+    nimMhs[jumlahMhs] = nim; // simpan nim yang diinput ke array nimMHS
+
+    int jumlahMatkul = 0;
+    while (true) {
+
+        // cek apakah matkul mencapai limit
+        if (jumlahMatkul > max_matkul) {
+            System.out.println("Kapasitas matkul penuh");
+            break;
+        }
+        // cek apakah total sks seorang mhs mencapai limit
+        if (totalSks[jumlahMhs] >= 24) {
+            System.out.println("SKS sudah mencapai limit (maks 24 SKS)!");
+            break;
+        }
+
+        String kodeMatkul = validateInput(input, "Kode Mata Kuliah : ");
+        String namaMatkul = validateInput(input, "Nama Mata Kuliah : ");
+
+        int sks;
+        while (true) {
+            System.out.print("Jumlah SKS (1-3) : ");
+            sks = input.nextInt();
+            input.nextLine();
+            if (sks >= 1 && sks <= 3) {
+                System.out.println("Data mata kuliah berhasil ditambahkan.");
+                break;
+            } else {
+                System.out.println("Jumlah SKS tidak valid! Coba lagi");
+            }
+        }
+
+        kodeMatkulMhs[jumlahMhs][jumlahMatkul] = kodeMatkul; // simpan kode matkul yg diinput ke array kodeMatkulMHS
+        namaMatkulMhs[jumlahMhs][jumlahMatkul] = namaMatkul; // simpan nama matkul yg diinput ke array namaMatkulMHS
+        sksMatkulMhs[jumlahMhs][jumlahMatkul] = sks; // simpan sks yg diinput ke array sksMatkulMHS
+        totalSks[jumlahMhs] += sks; // tambah sks ke array totalSKS untuk mhs indeks ke jumlahMHS 
+        jumlahMatkul++;
+
+        System.out.print("Tambah mata kuliah lain? (y/n) : ");
+        String pilihTambah = input.nextLine();
+        if (pilihTambah.equalsIgnoreCase("n")) {
+            break;
+        }
+
+    }
+    System.out.println("Total SKS yang diambil oleh " + namaMhs[jumlahMhs] + " : " + totalSks[jumlahMhs]); // tampilkan jumlah sks yg diambil
+
+    jumlahMhs++;
+}
+
+// Modify the tampilDataKRS method to use the validateInput method
+public static void tampilDataKRS(Scanner input) {
+    System.out.println("--- Tampilkan Daftar KRS Mahasiswa ---");
+    String nim = validateInput(input, "Masukkan NIM Mahasiswa : ");
+
+    int posisi = -1;
+
+    for (int i = 0; i < jumlahMhs; i++) {
+        if (nimMhs[i] != null && nimMhs[i].equals(nim)) {
+            posisi = i;  // Simpan posisi (0-based index)
+            break;
+        }
+    }
+
+    if (posisi == -1) { // Jika mahasiswa tidak ditemukan
+        System.out.println("Mahasiswa dengan NIM " + nim + " tidak ditemukan.");
+        return;
+    }
+
+    System.out.println("\nDaftar KRS:");
+    System.out.printf("%-10s %-15s %-10s %-25s %-5s\n", "NIM", "Nama", "Kode MK", "Nama Mata Kuliah", "SKS");
+
+    for (int i = 0; i < max_matkul; i++) {
+        if (kodeMatkulMhs[posisi][i] != null) { // Jika data mata kuliah valid
+            System.out.printf("%-10s %-15s %-10s %-25s %-5d\n",
+                    nimMhs[posisi],
+                    namaMhs[posisi],
+                    kodeMatkulMhs[posisi][i],
+                    namaMatkulMhs[posisi][i],
+                    sksMatkul
 
         while (isRun) {
             header();
